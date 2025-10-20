@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +11,11 @@ public class Warehouse {
     public Warehouse() {
         this.observers = new ArrayList<>();
         this.inventory = new HashMap<>();
+    }
+
+    public int getCountItem(){
+        return inventory.size();
+
     }
 
     public void addObserver(StockObserver observer) {
