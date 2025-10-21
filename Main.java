@@ -4,11 +4,11 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        Warehouse warehouse = new Warehouse();      
-        StockObserver alertService = new AlertService();        
+        Warehouse warehouse = new Warehouse();
+        StockObserver alertService = new AlertService();
         warehouse.addObserver(alertService);
         System.out.println("Welcome to the Event-Based Warehouse Tracker");
-        
+
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
@@ -25,11 +25,12 @@ public class Main {
                     System.out.print("Enter Product Name: ");
                     String name = scanner.nextLine();
                     int threshold = getIntInput(scanner, "Enter Reorder Threshold: ");
-                    warehouse.addProduct(id.strip().replaceAll("\\s+", " "), name.strip().replaceAll("\\s+", " "), threshold);
+                    warehouse.addProduct(id.strip().replaceAll("\\s+", " "), name.strip().replaceAll("\\s+", " "),
+                            threshold);
                     break;
                 case 2:
                     // 2. Receive Shipment
-                    if (warehouse.getCountItem()<=0) {
+                    if (warehouse.getCountItem() <= 0) {
                         System.out.print("Warehouse is empty");
                         break;
                     }
@@ -40,7 +41,7 @@ public class Main {
                     break;
                 case 3:
                     // 3. Fulfill Order
-                    if (warehouse.getCountItem()<=0) {
+                    if (warehouse.getCountItem() <= 0) {
                         System.out.print("Warehouse is empty");
                         break;
                     }
@@ -51,7 +52,7 @@ public class Main {
                     break;
                 case 4:
                     // 4. Check Stock
-                    if (warehouse.getCountItem()<=0) {
+                    if (warehouse.getCountItem() <= 0) {
                         System.out.print("Warehouse is empty");
                         break;
                     }
@@ -60,11 +61,14 @@ public class Main {
                     warehouse.printStockStatus(statusId);
                     break;
                 case 5:
+                    warehouse.getAllItemStock();
+                    break;
+                case 6:
                     running = false;
                     System.out.println("Exiting system.");
                     break;
                 default:
-                    System.err.println("Invalid choice. Please enter a number between 1 and 5.");
+                    System.out.println("Invalid choice. Please enter a number between 1 and 5.");
             }
             System.out.println();
         }
@@ -76,7 +80,8 @@ public class Main {
         System.out.println("2. Receive Shipment (Increase Stock)");
         System.out.println("3. Fulfill Order (Decrease Stock)");
         System.out.println("4. Check Product Stock");
-        System.out.println("5. Exit");
+        System.out.println("5. View All Item Stock");
+        System.out.println("6. Exit");
         System.out.println("");
     }
 
@@ -85,11 +90,11 @@ public class Main {
             try {
                 System.out.print(prompt);
                 int value = scanner.nextInt();
-                scanner.nextLine();     
+                scanner.nextLine();
                 return value;
             } catch (InputMismatchException e) {
-                System.err.println("Invalid input. Please enter a valid number.");
-                scanner.nextLine(); 
+                System.out.println("Invalid input. Please enter a valid number.");
+                scanner.nextLine();
             }
         }
     }
